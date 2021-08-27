@@ -13,6 +13,7 @@ Welcome to unicollege's documentation!
    howto
    pycharm/configuration
    users
+   courses
 
 
 
