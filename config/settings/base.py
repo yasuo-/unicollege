@@ -69,6 +69,9 @@ THIRD_PARTY_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "django_celery_beat",
+    "django_countries",
+    "django_filters",
+    "phonenumber_field",
 ]
 
 LOCAL_APPS = [
@@ -223,7 +226,7 @@ EMAIL_TIMEOUT = 5
 # Django Admin URL.
 ADMIN_URL = "admin/"
 # https://docs.djangoproject.com/en/dev/ref/settings/#admins
-ADMINS = [("""Yasuo Kurihara""", "yasuo-kurihara@example.com")]
+ADMINS = [("""example admin""", "example@example.com")]
 # https://docs.djangoproject.com/en/dev/ref/settings/#managers
 MANAGERS = ADMINS
 

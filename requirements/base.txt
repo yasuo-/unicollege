@@ -8,6 +8,8 @@ hiredis==2.0.0  # https://github.com/redis/hiredis-py
 celery==4.4.6  # pyup: < 5.0,!=4.4.7  # https://github.com/celery/celery
 django-celery-beat==2.2.0  # https://github.com/celery/django-celery-beat
 flower==0.9.7  # https://github.com/mher/flower
+python-dateutil==2.8.2  # https://github.com/dateutil
+phonenumberslite==8.12.28  # https://github.com/daviddrysdale/python-phonenumbers
 
 # Django
 # ------------------------------------------------------------------------------
@@ -17,3 +19,6 @@ django-model-utils==4.1.1  # https://github.com/jazzband/django-model-utils
 django-allauth==0.45.0  # https://github.com/pennersr/django-allauth
 django-crispy-forms==1.12.0  # https://github.com/django-crispy-forms/django-crispy-forms
 django-redis==5.0.0  # https://github.com/jazzband/django-redis
+django_countries==7.2.1  # https://github.com/SmileyChris/django-countries
+django-filter==2.4.0  # https://github.com/carltongibson/django-filter
+django-phonenumber-field==5.2.0  # https://github.com/stefanfoulis/django-phonenumber-field
