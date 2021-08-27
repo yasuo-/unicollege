@@ -334,3 +334,6 @@ unicollege/media/
 .env
 .envs/*
 !.envs/.local/
+
+## IDE
+.idea/
