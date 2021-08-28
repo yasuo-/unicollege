@@ -1,0 +1,42 @@
+[
+    {
+        "model": "courses.subject",
+        "pk": 1,
+        "fields": {
+            "title": "Mathematics",
+            "slug": "mathematics",
+            "created_at": "2020-09-01T15:43:29.899",
+            "updated_at": "2020-09-01T15:43:29.899"
+        }
+    },
+    {
+        "model": "courses.subject",
+        "pk": 2,
+        "fields": {
+            "title": "Music",
+            "slug": "music",
+            "created_at": "2020-09-01T15:43:29.899",
+            "updated_at": "2020-09-01T15:43:29.899"
+        }
+    },
+    {
+        "model": "courses.subject",
+        "pk": 3,
+        "fields": {
+            "title": "Physics",
+            "slug": "physics",
+            "created_at": "2020-09-01T15:43:29.899",
+            "updated_at": "2020-09-01T15:43:29.899"
+        }
+    },
+    {
+        "model": "courses.subject",
+        "pk": 4,
+        "fields": {
+            "title": "Programming",
+            "slug": "programming",
+            "created_at": "2020-09-01T15:43:29.899",
+            "updated_at": "2020-09-01T15:43:29.899"
+        }
+    }
+]
