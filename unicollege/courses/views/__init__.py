@@ -1,2 +1,2 @@
-from course import *
-from manage import *
+from .course import *
+from .manage import *
