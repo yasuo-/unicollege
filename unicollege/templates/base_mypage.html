@@ -95,18 +95,13 @@
       {% endif %}
 
       {% block content %}
+        <p>Use this document as a way to quick start any new project.</p>
       {% endblock content %}
 
     </div> <!-- /container -->
 
     {% block modal %}{% endblock modal %}
 
-    <script>
-      $(document).ready(function() {
-        {% block domready %}
-        {% endblock %}
-      });
-    </script>
     {% block inline_javascript %}
     {# Script tags with only code, no src (defer by default) #}
     {% endblock inline_javascript %}

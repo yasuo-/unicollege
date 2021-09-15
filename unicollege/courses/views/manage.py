@@ -13,29 +13,31 @@ from django.core.cache import cache
 from braces.views import CsrfExemptMixin, JsonRequestResponseMixin
 # from students.forms import CourseEnrollForm
 
-from .models import Course, Module, Content, Subject
-from .forms import ModuleFormSet
+from ..models import Course, Module, Content, Subject
+from ..forms import ModuleFormSet
 
 
-class OwnerMixin(object):
+class InstructorMixin(object):
     def get_queryset(self):
         qs = super().get_queryset()
-        return qs.filter(owner=self.request.user)
+        return qs.filter(instructor=self.request.user)
 
 
-class OwnerEditMixin(object):
+class InstructorEditMixin(object):
     def form_valid(self, form):
-        form.instance.owner = self.request.user
+        form.instance.instructor = self.request.user
+
         return super().form_valid(form)
 
 
-class OwnerCourseMixin(OwnerMixin):
+class InstructorCourseMixin(InstructorMixin):
     model = Course
     fields = ['subject', 'title', 'slug', 'overview']
-    success_url = reverse_lazy('manage_course_list')
+    # success
+    success_url = reverse_lazy('courses:manage_course_list')
 
 
-class OwnerCourseEditMixin(OwnerCourseMixin, OwnerEditMixin):
+class InstructorCourseEditMixin(InstructorCourseMixin, InstructorEditMixin):
     template_name = 'courses/manage/course/form.html'
 
 
@@ -45,22 +47,22 @@ class ManageCourseListView(ListView):
 
     def get_queryset(self):
         qs = super().get_queryset()
-        return qs.filter(owner=self.request.user)
+        return qs.filter(instructor=self.request.user)
 
 
-class ManageCourseListView(OwnerCourseMixin, ListView):
+class ManageCourseListView(InstructorCourseMixin, ListView):
     template_name = 'courses/manage/course/list.html'
 
 
-class CourseCreateView(OwnerCourseEditMixin, CreateView):
+class CourseCreateView(InstructorCourseEditMixin, CreateView):
     permission_required = 'courses.add_course'
 
 
-class CourseUpdateView(OwnerCourseEditMixin, UpdateView):
+class CourseUpdateView(InstructorCourseEditMixin, UpdateView):
     permission_required = 'courses.change_course'
 
 
-class CourseDeleteView(OwnerCourseMixin, DeleteView):
+class CourseDeleteView(InstructorCourseMixin, DeleteView):
     template_name = 'courses/manage/course/delete.html'
     permission_required = 'courses.delete_course'
 
@@ -85,7 +87,7 @@ class CourseModuleUpdateView(TemplateResponseMixin, View):
 
         if formset.is_valid():
             formset.save()
-            return redirect('manage_course_list')
+            return redirect('courses:manage_course_list')
 
         return self.render_to_response({'course': self.course, 'formset': formset})
 
@@ -139,7 +141,7 @@ class ContentCreateUpdateView(TemplateResponseMixin, View):
                 # new content
                 Content.objects.create(module=self.module, item=obj)
 
-            return redirect('module_content_list', self.module.id)
+            return redirect('courses:module_content_list', self.module.id)
 
         return self.render_to_response({'form': form, 'object': self.obj})
 
@@ -151,7 +153,7 @@ class ContentDeleteView(View):
         content.item.delete()
         content.delete()
 
-        return redirect('module_content_list', module.id)
+        return redirect('courses:module_content_list', module.id)
 
 
 class ModuleContentListView(TemplateResponseMixin, View):

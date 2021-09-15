@@ -51,7 +51,7 @@ class User(AbstractUser):
         ordering = ("email",)
 
     def __str__(self):
-        return self.name
+        return f'{self.name} {self.email}'
 
     def get_absolute_url(self):
         """Get url for user's detail view.
