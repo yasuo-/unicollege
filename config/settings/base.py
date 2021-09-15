@@ -60,6 +60,7 @@ DJANGO_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # "django.contrib.humanize", # Handy template tags
+    "baton", # THIRD_PARTY_APPS
     "django.contrib.admin",
     "django.forms",
 ]
@@ -79,8 +80,12 @@ LOCAL_APPS = [
     "unicollege.courses.apps.CoursesConfig"
     # Your stuff: custom apps go here
 ]
+
+LAST_APPS = [
+    "baton.autodiscover"
+]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
-INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS + LAST_APPS
 
 # MIGRATIONS
 # ------------------------------------------------------------------------------
@@ -242,7 +247,7 @@ LOGGING = {
     "formatters": {
         "verbose": {
             "format": "%(levelname)s %(asctime)s %(module)s "
-            "%(process)d %(thread)d %(message)s"
+                      "%(process)d %(thread)d %(message)s"
         }
     },
     "handlers": {
@@ -292,6 +297,60 @@ ACCOUNT_ADAPTER = "unicollege.users.adapters.AccountAdapter"
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 SOCIALACCOUNT_ADAPTER = "unicollege.users.adapters.SocialAccountAdapter"
 
-
-# Your stuff...
+# ADMIN Lib
+# baton
 # ------------------------------------------------------------------------------
+BATON = {
+    'SITE_HEADER': 'Baton',
+    'SITE_TITLE': 'Baton',
+    'INDEX_TITLE': 'Site administration',
+    'SUPPORT_HREF': 'https://github.com/otto-torino/django-baton/issues',
+    'COPYRIGHT': 'copyright © 2020 <a href="https://www.otto.to.it">Otto srl</a>',
+    'POWERED_BY': '<a href="https://www.otto.to.it">Otto srl</a>',
+    'CONFIRM_UNSAVED_CHANGES': True,
+    'SHOW_MULTIPART_UPLOADING': True,
+    'ENABLE_IMAGES_PREVIEW': True,
+    'CHANGELIST_FILTERS_IN_MODAL': True,
+    'CHANGELIST_FILTERS_ALWAYS_OPEN': False,
+    'CHANGELIST_FILTERS_FORM': True,
+    'MENU_ALWAYS_COLLAPSED': False,
+    'MENU_TITLE': 'Menu',
+    'MESSAGES_TOASTS': False,
+    'GRAVATAR_DEFAULT_IMG': 'retro',
+    'LOGIN_SPLASH': '/static/core/img/login-splash.png',
+    'SEARCH_FIELD': {
+        'label': 'Search contents...',
+        'url': '/search/',
+    },
+    'MENU': (
+        {'type': 'title', 'label': 'main', 'apps': ('auth',)},
+        {
+            'type': 'app',
+            'name': 'auth',
+            'label': 'Authentication',
+            'icon': 'fa fa-lock',
+            'models': (
+                {
+                    'name': 'user',
+                    'label': 'Users'
+                },
+                {
+                    'name': 'group',
+                    'label': 'Groups'
+                },
+            )
+        },
+        {'type': 'title', 'label': 'Contents', 'apps': ('flatpages',)},
+        {'type': 'model', 'label': 'Pages', 'name': 'flatpage', 'app': 'flatpages'},
+        {'type': 'free', 'label': 'Custom Link', 'url': 'http://www.google.it',
+         'perms': ('flatpages.add_flatpage', 'auth.change_user')},
+        {'type': 'free', 'label': 'My parent voice', 'default_open': True, 'children': [
+            {'type': 'model', 'label': 'A Model', 'name': 'mymodelname', 'app': 'myapp'},
+            {'type': 'free', 'label': 'Another custom link', 'url': 'http://www.google.it'},
+        ]},
+    ),
+    # 'ANALYTICS': {
+    #    'CREDENTIALS': os.path.join(BASE_DIR, 'credentials.json'),
+    #    'VIEW_ID': '12345678',
+    #}
+}
