@@ -2,50 +2,47 @@
 
 {% block title %}
   {% if subject %}
-    {{ subject.title }} courses
+    {{ subject.title }} コース
   {% else %}
-    All courses
+    全てのコース
   {% endif %}
 {% endblock %}
 
 {% block content %}
   <h1>
     {% if subject %}
-      {{ subject.title }} courses
+      {{ subject.title }} コース
     {% else %}
-      All courses
+      全てのコース
     {% endif %}
   </h1>
-  <div class="contents">
-    <h3>Subjects</h3>
-    <ul id="modules">
-      <li {% if not subject %}class="selected"{% endif %}>
-        <a href="{% url "courses:course_list" %}">All</a>
-      </li>
-      {% for s in subjects %}
-        <li {% if subject == s %}class="selected"{% endif %}>
-          <a href="{% url "courses:course_list_subject" s.slug %}">
-            {{ s.title }}
-            <br><span>{{ s.total_courses }} courses</span>
-          </a>
-        </li>
-      {% endfor %}
-    </ul>
-  </div>
-  <div class="module">
-    {% for course in courses %}
-      {% with subject=course.subject %}
-        <h3>
-          <a href="{% url "courses:course_detail" course.slug %}">
-      s      {{ course.title }}
-          </a>
-        </h3>
-        <p>
-          <a href="{% url "courses:course_list_subject" subject.slug %}">{{ subject }}</a>.
-          {{ course.total_modules }} modules.
-          Instructor: {{ course.owner.get_full_name }}
-        </p>
-      {% endwith %}
-    {% endfor %}
-  </div>
+  <section>
+    <div class="row">
+      <div class="col s12">
+        <section>
+          {% for course in courses %}
+            {% with subject=course.subject %}
+              <div class="col s12 m6 l6">
+                <div class="card">
+                  <div class="card-image">
+                    <div style="position: relative; padding-top: 56.25%;">
+                      <iframe src="https://iframe.videodelivery.net/ebed1d24969ee240c9fbf144be505f38?muted=true&preload=true"
+                              style="border: none; position: absolute; top: 0; height: 100%; width: 100%;"
+                              allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+                              allowfullscreen="true"></iframe>
+                    </div>
+                    <span class="card-title"> {{ course.instructor.get_full_name }}</span>
+                  </div>
+                  <div class="card-action">
+                    <a href="{% url "courses:course_detail" course.slug %}">{{ course.title }}</a>
+                  </div>
+                </div>
+              </div>
+            {% endwith %}
+          {% endfor %}
+
+        </section>
+      </div>
+    </div>
+  </section>
 {% endblock %}

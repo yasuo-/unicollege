@@ -8,26 +8,33 @@
 {% block content %}
   <div style="padding-top: 40px"></div>
   <div class="row">
+  {% for content in module.contents.all %} {% with item=content.item %}
+    {% if item.url %}
     <div style="position: relative; padding-top: 56.25%;">
-      <iframe src="https://iframe.videodelivery.net/ebed1d24969ee240c9fbf144be505f38?muted=true&preload=true"
+      <iframe src=" {{ item.url }}?muted=true&preload=true"
               style="border: none; position: absolute; top: 0; height: 100%; width: 100%;"
               allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
               allowfullscreen="true"></iframe>
     </div>
-    <div class="card-panel alcaramel"  style="margin-bottom: 150px">
-      <h5>詳細</h5>
-      <hr>
-      <div style="margin-top: 20px;margin-bottom: 20px">
-        <p class="">{{ object.title }}</p>
-        <span class="">提供者：{{ object.instructor.username }}</span>
-      </div>
+    {% endif %}
+  {% endwith %}
+  {% endfor %}
+  <div class="card-panel alcaramel" style="margin-bottom: 150px">
 
-      <hr>
-      <div style="margin-top: 20px;margin-bottom: 20px">
-        <span class="">{{ object.overview|linebreaks }}</span>
-      </div>
+    <div style="margin-top: 20px;margin-bottom: 20px">
+      {% for content in module.contents.all %} {% with item=content.item %}
+        <h5>{{ item.title }}</h5>
+        <hr>
+        <div style="margin-top: 20px;margin-bottom: 20px">
+        {{ item.body }}
+        </div>
 
-      <hr>
+         <div style="margin-top: 20px;margin-bottom: 20px">
+        {{ item.file }}
+        </div>
+      {% endwith %}
+      {% endfor %}
+
       <div class="row">
         <h6>モジュール一覧</h6>
         <div class="collection">
@@ -46,15 +53,5 @@
         </div>
       </div>
     </div>
-  </div>
-
-
-  <div class="module">
-    {% for content in module.contents.all %}
-      {% with item=content.item %}
-        <h2>{{ item.title }}</h2>
-        {{ item.render }}
-      {% endwith %}
-    {% endfor %}
   </div>
 {% endblock %}

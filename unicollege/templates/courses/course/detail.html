@@ -6,33 +6,77 @@
 
 
 {% block content %}
-  {% with subject=object.subject %}
-    <h1>
-      {{ object.title }}
-    </h1>
-    <div class="module">
-      <h2>Overview</h2>
-      <p>
-        <a href="{% url "courses:course_list_subject" subject.slug %}">
-          {{ subject.title }}</a>.
-        {{ object.modules.count }} modules.
-        Instructor: {{ object.owner.get_full_name }}
-      </p>
-      {{ object.overview|linebreaks }}
-    </div>
-  {% endwith %}
+    <div class="section">
+      <div class="row">
 
-  {{ object.overview|linebreaks }}
-  {% if request.user.is_authenticated %}
-    <form action="{% url "students:student_enroll_course" %}" method="post">
-      {{ enroll_form }}
-      {% csrf_token %}
-      <input type="submit" value="Enroll now">
-    </form>
-  {% else %}
-    <a href="{% url "students:student_registration" %}" class="button">
-      Register to enroll
-    </a>
-  {% endif %}
+        <div class="">
+
+
+          <article class="post-195 post type-post status-publish format-standard has-post-thumbnail hentry category-mile-end tag-will-travel-for-food roaster-49th-parallel roaster-counter-culture-coffee roaster-detour-coffee roaster-intelligentsia-coffee roaster-st-henri supplier-fabrique-darhoma metro-laurier metro-orange moods-community purpose-business-meeting purpose-social-meetups purpose-work"
+                  id="post-195">
+
+            <div class="row">
+              {% with subject=object.subject %}
+              <div class="col l12 s12">
+
+                <div style="position: relative; padding-top: 56.25%;">
+                        <iframe src="https://iframe.videodelivery.net/ebed1d24969ee240c9fbf144be505f38?muted=true&preload=true"
+                                style="border: none; position: absolute; top: 0; height: 100%; width: 100%;"
+                                allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+                                allowfullscreen="true"></iframe>
+                      </div>
+
+              </div>
+
+              <div class="col l12 s12">
+
+                <div class="card-panel alcaramel" style="min-height: 640px;">
+                  <h5>詳細</h5>
+                  <hr>
+                  <div style="margin-top: 20px;margin-bottom: 20px">
+                    <p class="">{{ object.title }}</p>
+                    <span class="">提供者：{{ object.instructor.username }}</span>
+                  </div>
+
+                  <hr>
+                  <div style="margin-top: 20px;margin-bottom: 20px">
+                  <span class="">{{ object.overview|linebreaks }}</span>
+                  </div>
+                  <hr>
+
+
+                 <div style="margin-top: 20px;margin-bottom: 20px">
+
+                    <span class="">コースモジュール：全{{ object.modules.count }}</span>
+
+                  </div>
+
+                  <hr>
+                    {% if request.user.is_authenticated %}
+                      <form action="{% url "students:student_enroll_course" %}" method="post">
+                        {{ enroll_form }}
+                        {% csrf_token %}
+                        <input type="submit" value="コースを始める">
+                      </form>
+                    {% else %}
+                      <a href="{% url "students:student_registration" %}" class="button">
+                        コースを始める
+                      </a>
+                    {% endif %}
+
+                </div>
+
+              </div>
+               {% endwith %}
+            </div>
+
+
+          </article>
+        </div>
+
+
+      </div>
+    </div>
+
 
 {% endblock %}
