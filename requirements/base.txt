@@ -24,3 +24,4 @@ django-filter==2.4.0  # https://github.com/carltongibson/django-filter
 django-phonenumber-field==5.2.0  # https://github.com/stefanfoulis/django-phonenumber-field
 django-braces==1.14.0  # https://github.com/brack3t/django-braces
 django-baton==2.2.2 # https://github.com/otto-torino/django-baton
+django-embed-video==1.4.0 # https://github.com/jazzband/django-embed-video

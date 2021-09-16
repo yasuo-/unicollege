@@ -73,11 +73,13 @@ THIRD_PARTY_APPS = [
     "django_countries",
     "django_filters",
     "phonenumber_field",
+    "embed_video",
 ]
 
 LOCAL_APPS = [
     "unicollege.users.apps.UsersConfig",
-    "unicollege.courses.apps.CoursesConfig"
+    "unicollege.courses.apps.CoursesConfig",
+    "unicollege.students.apps.StudentsConfig",
     # Your stuff: custom apps go here
 ]
 

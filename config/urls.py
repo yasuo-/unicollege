@@ -15,8 +15,10 @@ urlpatterns = [
     # User management
     path("users/", include("unicollege.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
-    # Courses management
+    # Courses management&course
     path("courses/", include("unicollege.courses.urls", namespace="courses")),
+    # Students
+    # path("students/", include("unicollege.students.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
