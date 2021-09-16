@@ -1,27 +1,55 @@
-<header class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-  <p class="h6 my-0 me-md-auto fw-normal">ビューティビジネス総合研究所</p>
-  <nav class="my-2 my-md-0 me-md-3">
-    <a class="p-2 text-dark" href="{% url 'home' %}">Home</a>
-    <a class="p-2 text-dark" href="{% url 'courses:course_list' %}">コース</a>
-  </nav>
 
+<nav>
+  <div class="nav-wrapper">
+    <a href="{% url 'home' %}" class="brand-logo" style="font-size: 15px">ビューティビジネス総合研究所</a>
+    <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    <ul class="right hide-on-med-and-down">
+      <li><a href="{% url 'home' %}">Home</a></li>
+  <li><a href="{% url 'courses:course_list' %}">コース一覧</a></li>
   {% if request.user.is_authenticated %}
-    <li class="nav-item">
+    <li>
       {# URL provided by django-allauth/account/urls.py #}
-      <a class="btn" href="{% url 'users:detail' request.user.username %}">プロフィール</a>
+      <a href="{% url 'users:detail' request.user.username %}">プロフィール</a>
     </li>
-    <li class="nav-item">
+    <li>
       {# URL provided by django-allauth/account/urls.py #}
-      <a class="btn btn-outline-primary" href="{% url 'account_logout' %}">ログアウト</a>
+      <a href="{% url 'account_logout' %}">ログアウト</a>
     </li>
   {% else %}
-    <li class="nav-item">
+    <li>
       {# URL provided by django-allauth/account/urls.py #}
-      <a id="sign-up-link" class="btn" href="{% url 'account_signup' %}">新規登録</a>
+      <a id="sign-up-link" href="{% url 'account_signup' %}">新規登録</a>
     </li>
-    <li class="nav-item">
+    <li>
       {# URL provided by django-allauth/account/urls.py #}
-      <a id="log-in-link" class="btn btn-outline-primary" href="{% url 'account_login' %}">ログイン</a>
+      <a id="log-in-link" href="{% url 'account_login' %}">ログイン</a>
     </li>
   {% endif %}
-</header>
+    </ul>
+  </div>
+</nav>
+
+<ul class="sidenav" id="mobile-demo">
+
+  <li><a href="{% url 'home' %}">Home</a></li>
+  <li><a href="{% url 'courses:course_list' %}">コース一覧</a></li>
+  {% if request.user.is_authenticated %}
+    <li>
+      {# URL provided by django-allauth/account/urls.py #}
+      <a href="{% url 'users:detail' request.user.username %}">プロフィール</a>
+    </li>
+    <li>
+      {# URL provided by django-allauth/account/urls.py #}
+      <a href="{% url 'account_logout' %}">ログアウト</a>
+    </li>
+  {% else %}
+    <li>
+      {# URL provided by django-allauth/account/urls.py #}
+      <a id="sign-up-link" href="{% url 'account_signup' %}">新規登録</a>
+    </li>
+    <li>
+      {# URL provided by django-allauth/account/urls.py #}
+      <a id="log-in-link" href="{% url 'account_login' %}">ログイン</a>
+    </li>
+  {% endif %}
+</ul>

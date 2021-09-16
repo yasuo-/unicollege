@@ -18,7 +18,7 @@ urlpatterns = [
     # Courses management&course
     path("courses/", include("unicollege.courses.urls", namespace="courses")),
     # Students
-    # path("students/", include("unicollege.students.urls")),
+    path("students/", include("unicollege.students.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
