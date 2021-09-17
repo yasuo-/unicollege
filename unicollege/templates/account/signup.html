@@ -6,30 +6,25 @@
 {% block head_title %}{% translate "Signup" %}{% endblock %}
 
 {% block inner %}
-  <div class="container">
+
+
+
+  <h3>{% translate "Sign Up" %}</h3>
+
+  <p>{% blocktranslate %}アカウントがある場合は、こちら <a href="{{ login_url }}">ログイン</a>
+    .{% endblocktranslate %}</p>
+
+  <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
     <div class="row">
-      <div class="col s12 offset-m2 m8 card-panel">
-
-
-        <h3>{% translate "Sign Up" %}</h3>
-
-        <p>{% blocktranslate %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>
-          .{% endblocktranslate %}</p>
-
-        <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-          <div class="row">
-            <div class="input-field col s12">
-              {% csrf_token %}
-              {{ form|crispy }}
-              {% if redirect_field_value %}
-                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
-              {% endif %}
-              <button class="btn btn-primary" type="submit">{% translate "Sign Up" %} &raquo;</button>
-            </div>
-          </div>
-        </form>
-
+      <div class="input-field col s12">
+        {% csrf_token %}
+        {{ form|crispy }}
+        {% if redirect_field_value %}
+          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+        {% endif %}
+        <button class="btn btn-primary" type="submit">{% translate "Sign Up" %} &raquo;</button>
       </div>
     </div>
-  </div>
+  </form>
+
 {% endblock %}

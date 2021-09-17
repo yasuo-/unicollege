@@ -1,10 +1,10 @@
 
 <nav>
   <div class="nav-wrapper">
-    <a href="{% url 'home' %}" class="brand-logo" style="font-size: 15px">ビューティビジネス総合研究所</a>
+    <a href="{% url 'home:home' %}" class="brand-logo" style="font-size: 15px">ビューティビジネス総合研究所</a>
     <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     <ul class="right hide-on-med-and-down">
-      <li><a href="{% url 'home' %}">Home</a></li>
+      <li><a href="{% url 'home:home' %}">Home</a></li>
   <li><a href="{% url 'courses:course_list' %}">コース一覧</a></li>
   {% if request.user.is_authenticated %}
     <li>
@@ -31,7 +31,7 @@
 
 <ul class="sidenav" id="mobile-demo">
 
-  <li><a href="{% url 'home' %}">Home</a></li>
+  <li><a href="{% url 'home:home' %}">Home</a></li>
   <li><a href="{% url 'courses:course_list' %}">コース一覧</a></li>
   {% if request.user.is_authenticated %}
     <li>

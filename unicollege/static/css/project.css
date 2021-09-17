@@ -409,3 +409,7 @@ footer.page-footer {
 nav .nav-wrapper {
   background: #333;
 }
+
+.form-group {
+  height: 100px;
+}
