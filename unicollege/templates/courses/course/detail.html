@@ -6,25 +6,26 @@
 
 
 {% block content %}
-    <div class="section">
-      <div class="row">
+  <div class="section">
+    <div class="row">
 
-        <div class="">
+      <div class="">
 
 
-          <article class="post-195 post type-post status-publish format-standard has-post-thumbnail hentry category-mile-end tag-will-travel-for-food roaster-49th-parallel roaster-counter-culture-coffee roaster-detour-coffee roaster-intelligentsia-coffee roaster-st-henri supplier-fabrique-darhoma metro-laurier metro-orange moods-community purpose-business-meeting purpose-social-meetups purpose-work"
-                  id="post-195">
+        <article
+                class="post-195 post type-post status-publish format-standard has-post-thumbnail hentry category-mile-end tag-will-travel-for-food roaster-49th-parallel roaster-counter-culture-coffee roaster-detour-coffee roaster-intelligentsia-coffee roaster-st-henri supplier-fabrique-darhoma metro-laurier metro-orange moods-community purpose-business-meeting purpose-social-meetups purpose-work"
+                id="post-195">
 
-            <div class="row">
-              {% with subject=object.subject %}
+          <div class="row">
+            {% with subject=object.subject %}
               <div class="col l12 s12">
 
                 <div style="position: relative; padding-top: 56.25%;">
-                        <iframe src="https://iframe.videodelivery.net/ebed1d24969ee240c9fbf144be505f38?muted=true&preload=true"
-                                style="border: none; position: absolute; top: 0; height: 100%; width: 100%;"
-                                allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
-                                allowfullscreen="true"></iframe>
-                      </div>
+                  <iframe src="https://iframe.videodelivery.net/ebed1d24969ee240c9fbf144be505f38?muted=true&preload=true"
+                          style="border: none; position: absolute; top: 0; height: 100%; width: 100%;"
+                          allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+                          allowfullscreen="true"></iframe>
+                </div>
 
               </div>
 
@@ -40,43 +41,45 @@
 
                   <hr>
                   <div style="margin-top: 20px;margin-bottom: 20px">
-                  <span class="">{{ object.overview|linebreaks }}</span>
+                    <span class="">{{ object.overview|linebreaks }}</span>
                   </div>
                   <hr>
 
 
-                 <div style="margin-top: 20px;margin-bottom: 20px">
+                  <div style="margin-top: 20px;margin-bottom: 20px">
 
                     <span class="">コースモジュール：全{{ object.modules.count }}</span>
 
                   </div>
 
                   <hr>
-                    {% if request.user.is_authenticated %}
-                      <form action="{% url "students:student_enroll_course" %}" method="post">
-                        {{ enroll_form }}
-                        {% csrf_token %}
+                  {% if request.user.is_authenticated %}
+                    <form action="{% url "students:student_enroll_course" %}" method="post">
+                      {{ enroll_form }}
+                      {% csrf_token %}
+                      <div style="margin-top: 12px">
                         <input type="submit" value="コースを始める">
-                      </form>
-                    {% else %}
-                      <a href="{% url "students:student_registration" %}" class="button">
-                        コースを始める
-                      </a>
-                    {% endif %}
+                      </div>
+                    </form>
+                  {% else %}
+                    <a href="{% url "students:student_registration" %}" class="button">
+                      コースを始める
+                    </a>
+                  {% endif %}
 
                 </div>
 
               </div>
-               {% endwith %}
-            </div>
+            {% endwith %}
+          </div>
 
 
-          </article>
-        </div>
-
-
+        </article>
       </div>
+
+
     </div>
+  </div>
 
 
 {% endblock %}

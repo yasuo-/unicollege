@@ -21,8 +21,8 @@ user_detail_view = UserDetailView.as_view()
 class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
     model = User
-    fields = ["name"]
-    success_message = _("Information successfully updated")
+    fields = ["name", "family_name", "given_name",]
+    success_message = _("更新されました")
 
     def get_success_url(self):
         return self.request.user.get_absolute_url()  # type: ignore [union-attr]

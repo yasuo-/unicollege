@@ -20,7 +20,7 @@ from .models import StudentCompletedModule
 from .forms import PostCompletedForm, ConnectBeautyVenueForm
 
 
-class StudentRegistrationView(CreateView):
+class StudentRegistrationView(LoginRequiredMixin, CreateView):
     """StudentRegistrationView"""
     template_name = 'students/student/registration.html'
     form_class = UserCreationForm
@@ -34,11 +34,15 @@ class StudentRegistrationView(CreateView):
 
         return result
 
+    def get_success_url(self):
+        return reverse_lazy('students:student_course_detail', args=[self.course.id])
+
 
 class StudentEnrollCourseView(LoginRequiredMixin, FormView):
     """StudentEnrollCourseView"""
     course = None
     form_class = CourseEnrollForm
+    success_url = reverse_lazy('students:student_course_list')
 
     def form_valid(self, form):
         self.course = form.cleaned_data['course']
@@ -60,7 +64,7 @@ class StudentCourseListView(LoginRequiredMixin, ListView):
         return qs.filter(students__in=[self.request.user])
 
 
-class StudentCourseDetailView(DetailView):
+class StudentCourseDetailView(LoginRequiredMixin, DetailView):
     """StudentCourseDetailView"""
     model = Course
     template_name = 'students/course/detail.html'
@@ -89,7 +93,7 @@ class StudentCourseDetailView(DetailView):
         return context
 
 
-class StudentCourseDetailContentView(DetailView):
+class StudentCourseDetailContentView(LoginRequiredMixin, DetailView):
     """StudentCourseDetailView"""
     model = Course
     template_name = 'students/course/detail_content.html'
