@@ -87,3 +87,18 @@ class UserAddress(TimeStampedModel):
 
     def __str__(self):
         return self.user.name
+
+
+class ConnectBeautyVenue(TimeStampedModel):
+    user = models.OneToOneField(
+        User,
+        related_name="user_connect",
+        on_delete=models.CASCADE,
+    )
+    email = models.EmailField(unique=True)
+
+    class Meta:
+        db_table = 'user_connect_beauty_venue'
+
+    def __str__(self):
+        return f'{self.email} {self.user.name}'

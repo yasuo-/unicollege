@@ -10,12 +10,13 @@
   <div class="row">
   {% for content in module.contents.all %} {% with item=content.item %}
     {% if item.url %}
-    <div style="position: relative; padding-top: 56.25%;">
-      <iframe src=" {{ item.url }}?muted=true&preload=true"
-              style="border: none; position: absolute; top: 0; height: 100%; width: 100%;"
-              allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
-              allowfullscreen="true"></iframe>
-    </div>
+      <div style="position: relative; padding-top: 56.25%;">
+        <iframe src=" {{ item.url }}?muted=true&preload=true"
+                style="border: none; position: absolute; top: 0; height: 100%; width: 100%;"
+                allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+                allowfullscreen="true">
+        </iframe>
+      </div>
     {% endif %}
   {% endwith %}
   {% endfor %}
@@ -26,27 +27,107 @@
         <h5>{{ item.title }}</h5>
         <hr>
         <div style="margin-top: 20px;margin-bottom: 20px">
-        {{ item.body }}
+          {{ item.body }}
         </div>
 
-         <div style="margin-top: 20px;margin-bottom: 20px">
-        {{ item.file }}
+        <div style="margin-top: 20px;margin-bottom: 20px">
+          {{ item.file }}
         </div>
       {% endwith %}
       {% endfor %}
 
-      <div class="row">
-        <h6>モジュール一覧</h6>
+      <h6 style="margin-bottom: 20px; font-size: 17px;font-weight: 600;">動画視聴後完了にしてください</h6>
+
+      {% for completed in completed_module %}
+        {% if module.id == completed.module.id %}
+          <div style="margin-bottom: 20px">
+            完了済み
+          </div>
+        {% else %}
+          <div style="margin-bottom: 40px">
+            <form action="/students/module/completed/" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="course" value="{{ object.id }}">
+              <input type="hidden" name="module" value="{{ module.id }}">
+              <button class="btn waves-effect waves-light" type="submit" name="action">完了にする
+                <i class="material-icons right">check_circle</i>
+              </button>
+            </form>
+          </div>
+        {% endif %}
+
+      {% empty %}
+        <div style="margin-bottom: 40px">
+          <form action="/students/module/completed/" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="course" value="{{ object.id }}">
+            <input type="hidden" name="module" value="{{ module.id }}">
+            <button class="btn waves-effect waves-light" type="submit" name="action">完了にする
+              <i class="material-icons right">check_circle</i>
+            </button>
+          </form>
+        </div>
+      {% endfor %}
+
+      <hr>
+
+      {% if object.modules.all.count == completed_list.count %}
+        <h6 style="margin-top:20px;margin-bottom: 20px; font-size: 17px;font-weight: 600;">Beauty Venueと連携する</h6>
+
+        {% if connect_beauty_venue.count > 0 %}
+          <p>BeautyVenue用のメールアドレスは登録されています</p>
+
+          <div style="margin-top: 20px;margin-bottom: 40px">
+            <p>Apple Storeは下記URL</p>
+            <a href="https://apps.apple.com/jp/app/beauty-venue/id1533492728">Beauty Venue</a>
+          </div>
+        {% endif %}
+
+        {% if connect_beauty_venue.count == 0 %}
+
+          <p style="margin-bottom: 4px;color: red; font-size: 12px;">Beauty Venueで登録しているEmailアドレスを登録してください。</p>
+          <p style="margin-top: 4px;margin-bottom: 4px;color: red; font-size: 12px;">Beauty Venueでフィジカルケアのメニューが使用できるようになります。</p>
+
+          <div style="margin-bottom: 40px">
+            <form action="/students/connect/beautyvenue/" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="course" value="{{ object.id }}">
+              <input type="hidden" name="module" value="{{ module.id }}">
+
+              <div class="row">
+                <div class="input-field col s12">
+                  <input id="email" type="email" class="validate">
+                  <label for="email">Email</label>
+                </div>
+              </div>
+              <button class="btn waves-effect waves-light" type="submit" name="action">Connect
+                <i class="material-icons right">send</i>
+              </button>
+            </form>
+          </div>
+          <div style="margin-top: 20px;margin-bottom: 40px">
+            <p>Beauty VenueのApple Storeは下記URL</p>
+            <a href="https://apps.apple.com/jp/app/beauty-venue/id1533492728">Beauty Venue</a>
+          </div>
+        {% endif %}
+      {% endif %}
+
+      <div class="row" style="margin-top: 20px">
+        <h6 style="margin-bottom: 20px;font-size: 17px;font-weight: 600;">モジュール一覧</h6>
         <div class="collection">
           {% for m in object.modules.all %}
             <a href="{% url "students:student_course_detail_module" object.id m.id %}"
                class="collection-item {% if m == module %}active{% endif %}">
-            <span>
-              モジュール <span class="order">{{ m.order|add:1 }}</span>
-            </span>
+              <span>
+                モジュール <span class="order">{{ m.order|add:1 }}</span>
+              </span>
               {{ m.title }}
+              {% for completed in completed_list %}
+                {% if m == completed.module %}
+                  <span><i class="material-icons right">check_circle</i></span>
+                {% endif %}
+              {% endfor %}
             </a>
-
           {% empty %}
             <li>No modules yet.</li>
           {% endfor %}

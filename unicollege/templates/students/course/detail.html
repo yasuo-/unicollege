@@ -38,6 +38,11 @@
               モジュール <span class="order">{{ m.order|add:1 }}</span>
             </span>
               {{ m.title }}
+              {% for completed in completed_list %}
+                {% if m == completed.module %}
+                <span><i class="material-icons right">check_circle</i></span>
+                {% endif %}
+              {% endfor %}
             </a>
 
           {% empty %}

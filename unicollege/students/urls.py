@@ -17,4 +17,8 @@ urlpatterns = [
          name='student_course_detail'),
     path('course/<pk>/<module_id>/', (views.StudentCourseDetailContentView.as_view()),
          name='student_course_detail_module'),
+    path('module/completed/', views.student_module_view,
+         name='student_course_detail_module_completed'),
+    path('connect/beautyvenue/', views.connect_beauty_venue,
+         name='student_connect_beautyvenue'),
 ]

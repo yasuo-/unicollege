@@ -1,16 +1,23 @@
-from django.shortcuts import render
+from datetime import timezone
+
+from django.http import HttpResponse
+from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView
 from django.views.generic.edit import FormView
 from django.views.generic.list import ListView
+from django.contrib import messages
 from django.views.generic.detail import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import authenticate, login
 
 from .forms import CourseEnrollForm
 
+from ..users.models import ConnectBeautyVenue
 from ..courses.models import Course
+from .models import StudentCompletedModule
+from .forms import PostCompletedForm, ConnectBeautyVenueForm
 
 
 class StudentRegistrationView(CreateView):
@@ -70,9 +77,15 @@ class StudentCourseDetailView(DetailView):
         if 'module_id' in self.kwargs:
             # get current module
             context['module'] = course.modules.get(id=self.kwargs['module_id'])
+            completed = StudentCompletedModule.objects.filter(course=self.kwargs['pk'], student=self.request.user)
+            context['completed_list'] = completed
         else:
             # get first module
             context['module'] = course.modules.all()
+            completed = StudentCompletedModule.objects.filter(course=self.kwargs['pk'], student=self.request.user)
+            context['completed_list'] = completed
+
+        print(context)
         return context
 
 
@@ -93,7 +106,58 @@ class StudentCourseDetailContentView(DetailView):
         if 'module_id' in self.kwargs:
             # get current module
             context['module'] = course.modules.get(id=self.kwargs['module_id'])
+            completed = StudentCompletedModule.objects.filter(course=self.kwargs['pk'], student=self.request.user)
+            context['completed_list'] = completed
+            completed_module = StudentCompletedModule.objects.filter(module=self.kwargs['module_id'], student=self.request.user)
+            context['completed_module'] = completed_module
+            context['connect_beauty_venue'] = ConnectBeautyVenue.objects.filter(user=self.request.user)
+            print(context['completed_list'])
         else:
             # get first module
             context['module'] = course.modules.all()
+            completed_list = StudentCompletedModule.objects.filter(course=self.kwargs['pk'], student=self.request.user)
+            context['completed_list'] = completed_list
+
+        print(context)
         return context
+
+
+def student_module_view(request):
+    """student_module_view
+    postでモデュール完了
+    """
+    template = 'students/course/detail_content.html'
+
+    if request.method == "POST":
+        form = PostCompletedForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.student = request.user
+            post.save()
+
+            messages.success(request, 'このモジュールを完了しました。')
+            return redirect('students:student_course_detail_module', pk=post.course.id, module_id=post.module.id)
+    else:
+        form = PostCompletedForm()
+
+    return render(request, template, {'form': form})
+
+
+def connect_beauty_venue(request):
+
+    template = 'students/course/detail_content.html'
+
+    if request.method == "POST":
+        form = ConnectBeautyVenueForm(request.POST)
+
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user = request.user
+            post.save()
+            messages.success(request, '登録しました。BeautyVenueには明日連携されています')
+
+            return redirect('students:student_course_detail_module', pk=request.course, module_id=request.module)
+        else:
+            form = PostCompletedForm()
+
+    return render(request, template, {'form': form})

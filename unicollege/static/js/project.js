@@ -1,6 +1,6 @@
 /* Project specific Javascript goes here. */
 $(".close").on("click", function(){
-  $("alert").remove();
+  $(".alert").remove();
 });
 
 $('.sidenav-trigger').on("click", function(){
