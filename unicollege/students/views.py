@@ -148,16 +148,19 @@ def connect_beauty_venue(request):
     template = 'students/course/detail_content.html'
 
     if request.method == "POST":
+        data = request.POST
         form = ConnectBeautyVenueForm(request.POST)
-
         if form.is_valid():
             post = form.save(commit=False)
             post.user = request.user
             post.save()
             messages.success(request, '登録しました。BeautyVenueには明日連携されています')
 
-            return redirect('students:student_course_detail_module', pk=request.course, module_id=request.module)
+            return redirect('students:student_course_detail_module', pk=data['course'], module_id=data['module'])
         else:
             form = PostCompletedForm()
+            messages.error(request, 'エラー: メールの登録できませんでした')
+
+            return redirect('students:student_course_detail_module', pk=data['course'], module_id=data['module'])
 
     return render(request, template, {'form': form})
