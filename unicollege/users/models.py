@@ -96,6 +96,7 @@ class ConnectBeautyVenue(TimeStampedModel):
         on_delete=models.CASCADE,
     )
     email = models.EmailField(unique=True)
+    is_connect = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'user_connect_beauty_venue'
