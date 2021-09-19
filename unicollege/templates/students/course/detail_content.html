@@ -23,17 +23,18 @@
   <div class="card-panel alcaramel" style="margin-bottom: 150px">
 
     <div style="margin-top: 20px;margin-bottom: 20px">
-      {% for content in module.contents.all %} {% with item=content.item %}
-        <h5>{{ item.title }}</h5>
-        <hr>
-        <div style="margin-top: 20px;margin-bottom: 20px">
-          {{ item.body }}
-        </div>
+      {% for content in module.contents.all %}
+        {% with item=content.item %}
+          <h5 style="margin-bottom: 20px;font-size: 19px;font-weight: 600;">{{ item.title }}</h5>
+          <hr>
+          <div style="margin-top: 20px;margin-bottom: 20px">
+            {{ item.body }}
+          </div>
 
-        <div style="margin-top: 20px;margin-bottom: 20px">
-          {{ item.file }}
-        </div>
-      {% endwith %}
+          <div style="margin-top: 20px;margin-bottom: 20px">
+            {{ item.file }}
+          </div>
+        {% endwith %}
       {% endfor %}
 
       <h6 style="margin-bottom: 20px; font-size: 17px;font-weight: 600;">動画視聴後完了にしてください</h6>
@@ -86,7 +87,8 @@
         {% if connect_beauty_venue.count == 0 %}
 
           <p style="margin-bottom: 4px;color: red; font-size: 12px;">Beauty Venueで登録しているEmailアドレスを登録してください。</p>
-          <p style="margin-top: 4px;margin-bottom: 4px;color: red; font-size: 12px;">Beauty Venueでフィジカルケアのメニューが使用できるようになります。</p>
+          <p style="margin-top: 4px;margin-bottom: 4px;color: red; font-size: 12px;">Beauty
+            Venueでフィジカルケアのメニューが使用できるようになります。</p>
 
           <div style="margin-bottom: 40px">
             <form action="/students/connect/beautyvenue/" method="post">

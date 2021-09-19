@@ -14,8 +14,8 @@
               allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
               allowfullscreen="true"></iframe>
     </div>
-    <div class="card-panel alcaramel"  style="margin-bottom: 150px">
-      <h5>詳細</h5>
+    <div class="card-panel alcaramel" style="margin-bottom: 150px">
+      <h5 style="margin-bottom: 20px;font-size: 19px;font-weight: 600;">詳細</h5>
       <hr>
       <div style="margin-top: 20px;margin-bottom: 20px">
         <p class="">{{ object.title }}</p>
@@ -28,8 +28,8 @@
       </div>
 
       <hr>
-      <div class="row">
-        <h6>モジュール一覧</h6>
+      <div class="row" 　style="margin-top: 20px">
+        <h6 style="margin-bottom: 20px;font-size: 16px;font-weight: 600;">モジュール一覧</h6>
         <div class="collection">
           {% for m in object.modules.all %}
             <a href="{% url "students:student_course_detail_module" object.id m.id %}"
@@ -40,7 +40,7 @@
               {{ m.title }}
               {% for completed in completed_list %}
                 {% if m == completed.module %}
-                <span><i class="material-icons right">check_circle</i></span>
+                  <span><i class="material-icons right">check_circle</i></span>
                 {% endif %}
               {% endfor %}
             </a>
