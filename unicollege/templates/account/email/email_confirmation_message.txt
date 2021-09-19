@@ -4,4 +4,4 @@
 
 {% block content %}{% autoescape off %}{% user_display user as user_display %}{% blocktrans with site_name=current_site.name site_domain=current_site.domain %}ユーザー {{ user_display }}が{{ site_domain }}にアカウントを登録するためのメールアドレスを指定したため、このメールを受信しています.
 
-これが正しいことを確認するには、{{ activate_url }}に移動します{% endblocktrans %}{% endautoescape %}{% endblock %}
+リンクをクリックして正しいことを確認してください. {{ activate_url }} {% endblocktrans %}{% endautoescape %}{% endblock %}
